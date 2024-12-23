@@ -2,8 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Lausaunne';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../public//fonts/TWK\ Lausanne\ 300.ttf');
+}
+
+@font-face {
+  font-family: 'Lausaunne';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../public//fonts/TWK\ Lausanne\ 400.ttf');
+}
+
+@font-face {
+  font-family: 'Lausaunne';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../public//fonts/TWK\ Lausanne\ 500.ttf');
+}
+
+@font-face {
+  font-family: 'Lausaunne';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../../public//fonts/TWK\ Lausanne\ 600.ttf');
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Lausaunne';
+  font-weight: 300;
+}
+
+* {
+  font-family: 'Lausaunne';
 }
 
 @layer base {

@@ -3,26 +3,37 @@ import '@/styles/globals.css'
 import localFont from 'next/font/local'
 import React from 'react'
 
-const lausanne = localFont({
-  src: [
-    {
-      path: '../public/fonts/TWK Lausanne 300.ttf',
-      weight: '300',
-    },
-    {
-      path: '../public/fonts/TWK Lausanne 400.ttf',
-      weight: '400',
-    },
-    {
-      path: '../public/fonts/TWK Lausanne 500.ttf',
-      weight: '500',
-    },
-    {
-      path: '../public/fonts/TWK Lausanne 600.ttf',
-      weight: '600',
-    },
-  ],
+
+const lausanne300 = localFont({
+  src: '../public/fonts/TWK Lausanne 300.ttf',
+  variable: "--font-lausanne",
+  weight: "300",
 })
+
+const lausanne400 = localFont({
+  src: '../public/fonts/TWK Lausanne 400.ttf',
+  variable: "--font-lausanne",
+  weight: "400",
+})
+
+const lausanne500 = localFont({
+  src: '../public/fonts/TWK Lausanne 500.ttf',
+  variable: "--font-lausanne",
+  weight: "500",
+})
+
+const lausanne600 = localFont({
+  src: '../public/fonts/TWK Lausanne 600.ttf',
+  variable: "--font-lausanne",
+  weight: "600",
+})
+
+const localFontClassNames = [
+  lausanne300.variable,
+  lausanne400.variable,
+  lausanne500.variable,
+  lausanne600.variable,
+].join(" ")
 
 
 const preview: Preview = {
@@ -36,7 +47,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <main className={lausanne.className}>
+      <main className={localFontClassNames}>
         <Story />
       </main>
     ),

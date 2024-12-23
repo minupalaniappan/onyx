@@ -9,8 +9,8 @@ const meta: Meta<typeof Button> = {
 
 export default meta
 
-export const Default = {
+export const Index = {
   args: {
-    children: 'Click me',
+    children: 'Button',
   },
 }

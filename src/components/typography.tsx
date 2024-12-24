@@ -32,3 +32,10 @@ export const ButtonLink = tw(Link)`
   whitespace-nowrap
   hover:underline
 `
+
+export const OverlayHeader = tw.div<PropsWithChildren>`
+  font-normal
+  text-xl
+  text-black
+  leading-none
+`

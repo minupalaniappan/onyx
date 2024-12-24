@@ -14,7 +14,7 @@ const SignupCard = (props: SignupCardProps) => {
   return (
     <Card>
       <CardContent>
-        <Column wGrow className="gap-6">
+        <Column wGrow className="gap-4">
           <Column className="gap-2">
             <CardHeader>Acme</CardHeader>
             <CardDescription>Get started with Acme</CardDescription>

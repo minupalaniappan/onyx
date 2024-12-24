@@ -39,6 +39,7 @@ export type RowProps = PropsWithChildren & {
   y?: 'top' | 'center' | 'bottom'
   className?: string
   between?: boolean
+  onClick?: () => void
 }
 
 export const Row = tw.div<RowProps>`

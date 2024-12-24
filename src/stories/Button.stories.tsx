@@ -11,6 +11,6 @@ export default meta
 
 export const Index = {
   args: {
-    children: 'Calendar',
+    children: 'Acme Button',
   },
 }

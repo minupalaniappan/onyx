@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react'
 import SignupCard from '../components/signupCard'
 
 const meta: Meta<typeof SignupCard> = {
-  title: 'Components/LoginCard',
+  title: 'Components/SignupCard',
   render: (args) => <SignupCard {...args} />,
 }
 

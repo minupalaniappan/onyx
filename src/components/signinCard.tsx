@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent } from './ui/card'
-import { Column } from './layout'
+import { Column, Row } from './layout'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { ButtonLink, CardDescription, CardHeader } from './typography'
@@ -14,17 +14,21 @@ const LoginCard = (props: LoginCardProps) => {
   return (
     <Card>
       <CardContent>
-        <Column wGrow className="gap-3">
+        <Column wGrow className="gap-6">
           <Column className="gap-2">
             <CardHeader>Acme</CardHeader>
             <CardDescription>Welcome back to Acme</CardDescription>
           </Column>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Button onClick={props.onLogin}>Sign</Button>
-          <Separator />
-          <Button>Sign in via Google</Button>
-          <ButtonLink href={'/forgot-password'}>Forgot Password</ButtonLink>
+          <Column className="gap-2" wGrow>
+            <Input placeholder="Email" />
+            <Input placeholder="Password" />
+            <Button onClick={props.onLogin}>Sign</Button>
+            <Separator />
+            <Button value={'secondary'}>Sign in via Google</Button>
+          </Column>
+          <Row className="gap-2">
+            <ButtonLink href={'/signup'}>Forgot Password</ButtonLink>
+          </Row>
         </Column>
       </CardContent>
     </Card>

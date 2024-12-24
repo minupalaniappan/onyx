@@ -14,17 +14,19 @@ const SignupCard = (props: SignupCardProps) => {
   return (
     <Card>
       <CardContent>
-        <Column wGrow className="gap-3">
+        <Column wGrow className="gap-6">
           <Column className="gap-2">
             <CardHeader>Acme</CardHeader>
-            <CardDescription>Lets get started</CardDescription>
+            <CardDescription>Get started with Acme</CardDescription>
           </Column>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
-          <Button onClick={props.onSignup}>Sign up</Button>
-          <Separator />
-          <Button>Sign up via Google</Button>
+          <Column className="gap-2" wGrow>
+            <Input placeholder="Email" />
+            <Input placeholder="Password" />
+            <Input placeholder="Confirm Password" />
+            <Button onClick={props.onSignup}>Sign up</Button>
+            <Separator />
+            <Button value={'secondary'}>Sign up via Google</Button>
+          </Column>
         </Column>
       </CardContent>
     </Card>

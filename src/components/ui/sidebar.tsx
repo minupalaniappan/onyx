@@ -274,20 +274,22 @@ const SidebarTrigger = React.forwardRef<
   const { toggleSidebar } = useSidebar()
 
   return (
-    <Button
-      ref={ref}
-      data-sidebar="trigger"
-      variant="ghost"
-      className={cn('h-7 w-7', className)}
-      onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
-      }}
-      {...props}
-    >
-      <PanelLeft className="!w-4 !h-4" />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+    <div className="mr-1">
+      <Button
+        ref={ref}
+        data-sidebar="trigger"
+        variant="ghost"
+        className={cn('h-7 w-7', className)}
+        onClick={(event) => {
+          onClick?.(event)
+          toggleSidebar()
+        }}
+        {...props}
+      >
+        <PanelLeft className="!w-4 !h-4" />
+        <span className="sr-only">Toggle Sidebar</span>
+      </Button>
+    </div>
   )
 })
 SidebarTrigger.displayName = 'SidebarTrigger'
@@ -365,7 +367,7 @@ const SidebarHeader = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="header"
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn('flex flex-col gap-2 p-3', className)}
       {...props}
     />
   )
@@ -411,7 +413,7 @@ const SidebarContent = React.forwardRef<
       ref={ref}
       data-sidebar="content"
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden py-4',
+        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden py-2',
         className,
       )}
       {...props}

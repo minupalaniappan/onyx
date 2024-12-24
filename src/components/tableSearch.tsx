@@ -13,7 +13,7 @@ const TableSearch = (props: TableSearchProps) => {
       <Input
         placeholder="Search"
         onChange={(e) => props.onSearch(e.target.value)}
-        className="focus-visible:outline-none focus-visible:ring-none focus-visible:ring-none h-fit border border-black border-b-0 pl-7 font-light text-md"
+        className="focus-visible:outline-none focus-visible:ring-none focus-visible:ring-none h-fit border border-black border-b-0 pl-7 font-light text-md !ring-0"
       />
     </div>
   )

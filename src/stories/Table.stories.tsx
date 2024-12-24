@@ -25,7 +25,7 @@ const data = Array.from({ length: 100 }, (_, index) => ({
 
 const meta: Meta<typeof DataTable> = {
   title: 'Components/Table',
-  render: (args) => <DataTable {...args} />,
+  render: (args) => <DataTable isLoading {...args} />,
 }
 
 export default meta

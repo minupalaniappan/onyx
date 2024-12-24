@@ -3,7 +3,8 @@ import { Card, CardContent } from './ui/card'
 import { Column } from './layout'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { CardDescription, CardHeader } from './typography'
+import { ButtonLink, CardDescription, CardHeader } from './typography'
+import { Separator } from './ui/separator'
 
 type LoginCardProps = {
   onLogin: () => void
@@ -20,7 +21,10 @@ const LoginCard = (props: LoginCardProps) => {
           </Column>
           <Input placeholder="Email" />
           <Input placeholder="Password" />
-          <Button onClick={props.onLogin}>Login</Button>
+          <Button onClick={props.onLogin}>Sign</Button>
+          <Separator />
+          <Button>Sign in via Google</Button>
+          <ButtonLink href={'/forgot-password'}>Forgot Password</ButtonLink>
         </Column>
       </CardContent>
     </Card>

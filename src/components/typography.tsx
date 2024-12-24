@@ -1,4 +1,5 @@
 import { tw } from '@minupalaniappan/brise'
+import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 
 export const CardHeader = tw.div<PropsWithChildren>`
@@ -21,4 +22,13 @@ export const PaginatorText = tw.div<PropsWithChildren>`
   text-black
   leading-none
   whitespace-nowrap
+`
+
+export const ButtonLink = tw(Link)`
+  font-light
+  text-md
+  text-gray-600
+  leading-none
+  whitespace-nowrap
+  hover:underline
 `

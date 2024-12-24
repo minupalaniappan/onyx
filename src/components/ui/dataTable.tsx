@@ -44,63 +44,58 @@ export function DataTable<TData, TValue>({
 
   const tableHeight = height - 80
 
-  console.log(height, tableHeight)
-
   return (
     <Column wGrow>
       <Row grow className="w-full h-[40px]">
         <TableSearch onSearch={() => {}} />
         <Paginator page={1} totalPages={10} onPageChange={() => {}} />
       </Row>
+      <Row
+        grow
+        className="w-full h-[40px] border-l border-black px-2 border-t border-r items-center "
+      >
+        {table.getHeaderGroups().map((headerGroup) => (
+          <Row key={headerGroup.id} className="bg-white w-full">
+            {headerGroup.headers.map((header) => {
+              return (
+                <div key={header.id} className="text-xs w-full">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </div>
+              )
+            })}
+          </Row>
+        ))}
+      </Row>
       <div
         className="border border-black overflow-y-scroll w-full"
         style={{
-          height: 'calc(100vh - 80px)',
-          maxHeight: 'calc(100vh - 80px)',
+          height: 'calc(100vh - 110px)',
+          maxHeight: 'calc(100vh - 110px)',
         }}
         ref={ref}
       >
         {isLoading ? (
           <Column className="gap-2 p-2" wGrow grow>
-            {Array.from({ length: tableHeight / 23 }).map((_, index) => (
+            {Array.from({ length: tableHeight / 22 }).map((_, index) => (
               <Row key={index} grow className="h-[20px] w-full">
                 <Skeleton className="!w-full !h-[20px] rounded-none" />
               </Row>
             ))}
           </Column>
         ) : (
-          <Table className="h-full bg-gray-100 table-fixed">
-            <TableHeader className="!sticky !top-0">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow
-                  key={headerGroup.id}
-                  className="py-4 bg-white sticky top-0 "
-                >
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className="py-2 !font-light text-md !sticky !top-0"
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
+          <Table className="h-full bg-gray-100 relative">
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="cursor-pointer hover:bg-gray-200 table-fixed"
+                    className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

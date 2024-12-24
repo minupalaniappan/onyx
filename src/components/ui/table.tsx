@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
+import { Column, Row } from '../layout'
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -27,10 +28,10 @@ TableHeader.displayName = 'TableHeader'
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn('[&_tr:last-child]:border-0 h-full', className)}
+>(({ className, ...props }) => (
+  <Column
+    wGrow
+    className={cn('[&_tr:last-child]:border-0 h-full w-full', className)}
     {...props}
   />
 ))
@@ -54,11 +55,10 @@ TableFooter.displayName = 'TableFooter'
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
+>(({ className, ...props }) => (
+  <Row
     className={cn(
-      'border-b transition-colors data-[state=selected] bg-gray-100 rounded-none border-black',
+      'border-b transition-colors data-[state=selected] bg-gray-100 rounded-none border-black w-full',
       className,
     )}
     {...props}
@@ -85,10 +85,10 @@ const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
-  <td
+  <div
     ref={ref}
     className={cn(
-      'p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+      'py-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] w-full',
       className,
     )}
     {...props}

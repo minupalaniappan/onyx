@@ -7,19 +7,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { Column, Row } from '../layout'
 import TableSearch from '../tableSearch'
 import Paginator from '../paginator'
 import { Skeleton } from './skeleton'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -40,9 +33,15 @@ export function DataTable<TData, TValue>({
 
   const ref = useRef<HTMLDivElement>(null)
 
-  const height = ref.current?.clientHeight || 0
+  const [tableHeight, setTableHeight] = useState(0)
 
-  const tableHeight = height - 80
+  useEffect(() => {
+    if (ref.current) {
+      setTableHeight(ref.current.clientHeight)
+    }
+  }, [ref])
+
+  console.info(tableHeight)
 
   return (
     <Column wGrow>
@@ -76,12 +75,13 @@ export function DataTable<TData, TValue>({
         style={{
           height: 'calc(100vh - 110px)',
           maxHeight: 'calc(100vh - 110px)',
+          overflow: isLoading ? 'hidden' : 'scroll',
         }}
         ref={ref}
       >
         {isLoading ? (
           <Column className="gap-2 p-2" wGrow grow>
-            {Array.from({ length: tableHeight / 22 }).map((_, index) => (
+            {Array.from({ length: tableHeight / 20 }).map((_, index) => (
               <Row key={index} grow className="h-[20px] w-full">
                 <Skeleton className="!w-full !h-[20px] rounded-none" />
               </Row>

@@ -1,13 +1,14 @@
 import type { Meta } from '@storybook/react'
 
-import { Sidebar, SidebarProvider } from '../components/ui/sidebar'
+import { SidebarProvider } from '../components/ui/sidebar'
 import AppSidebar from '../components/appSidebar'
+import { HomeIcon, UsersIcon } from '@heroicons/react/24/outline'
 
-const meta: Meta<typeof Sidebar> = {
+const meta: Meta<typeof AppSidebar> = {
   title: 'Components/Sidebar',
-  render: () => (
+  render: (args) => (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar items={args.items} />
     </SidebarProvider>
   ),
 }
@@ -15,5 +16,18 @@ const meta: Meta<typeof Sidebar> = {
 export default meta
 
 export const Index = {
-  args: {},
+  args: {
+    items: [
+      {
+        title: 'Dashboard',
+        url: '/',
+        icon: <HomeIcon className="h-4 stroke-2 w-4 stroke stroke-black" />,
+      },
+      {
+        title: 'Users',
+        url: '/users',
+        icon: <UsersIcon className="h-4 stroke-2 w-4 stroke stroke-black" />,
+      },
+    ],
+  },
 }

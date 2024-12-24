@@ -18,7 +18,7 @@ export const CardDescription = tw.div<PropsWithChildren>`
 export const PaginatorText = tw.div<PropsWithChildren>`
   font-light
   text-sm
-  text-gray-600
+  text-black
   leading-none
   whitespace-nowrap
 `

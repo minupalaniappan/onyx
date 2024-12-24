@@ -17,13 +17,11 @@ const columns = [
   },
 ]
 
-const data = [
-  {
-    name: 'John Doe',
-    age: 28,
-    email: 'john.doe@example.com',
-  },
-]
+const data = Array.from({ length: 100 }, (_, index) => ({
+  name: `John Doe ${index}`,
+  age: 28,
+  email: `john.doe${index}@example.com`,
+}))
 
 const meta: Meta<typeof DataTable> = {
   title: 'Components/Table',

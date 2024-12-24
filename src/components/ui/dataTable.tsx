@@ -40,16 +40,25 @@ export function DataTable<TData, TValue>({
         <TableSearch onSearch={() => {}} />
         <Paginator page={1} totalPages={10} onPageChange={() => {}} />
       </Row>
-      <div className="border border-black h-full w-full">
-        <Table className="h-full bg-gray-100">
-          <TableHeader>
+      <div
+        className="border border-black overflow-y-scroll w-full"
+        style={{
+          height: 'calc(100vh - 80px)',
+          maxHeight: 'calc(100vh - 80px)',
+        }}
+      >
+        <Table className="h-full bg-gray-100 table-fixed">
+          <TableHeader className="!sticky !top-0">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="py-4 bg-white">
+              <TableRow
+                key={headerGroup.id}
+                className="py-4 bg-white sticky top-0 "
+              >
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
                       key={header.id}
-                      className="py-2 !font-light text-md"
+                      className="py-2 !font-light text-md !sticky !top-0"
                     >
                       {header.isPlaceholder
                         ? null
@@ -69,7 +78,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className="cursor-pointer hover:bg-gray-200"
+                  className="cursor-pointer hover:bg-gray-200 table-fixed"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

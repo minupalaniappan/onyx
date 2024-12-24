@@ -16,6 +16,7 @@ const OverlayStory = () => {
         onClose={() => setOpen(false)}
         direction="right"
         onSave={() => setOpen(false)}
+        title="Overlay"
       ></Overlay>
     </Column>
   )

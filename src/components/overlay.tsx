@@ -16,24 +16,25 @@ const Overlay = (props: Props) => {
   return (
     <Drawer
       open={props.open}
-      size={500}
       direction={props.direction}
       onClose={props.onClose}
       className="min-w-[400px]"
     >
       <Column wGrow grow>
-        <Row className="w-full border-b border-black" grow>
+        <Row className="w-full border-b border-black h-[55px]" grow>
           {props.onClose ? (
             <Row
               y="center"
               x="center"
-              className="border-r border-black p-4 hover:bg-gray-100 cursor-pointer"
+              className="border-r border-black h-full w-fit p-4 hover:bg-gray-100 cursor-pointer"
               onClick={props.onClose}
             >
               <XMarkIcon className="h-6 w-6" />
             </Row>
           ) : null}
-          <OverlayHeader>{props.title}</OverlayHeader>
+          <Row y="center" grow hGrow className="!h-[px] w-full px-4">
+            <OverlayHeader>{props.title}</OverlayHeader>
+          </Row>
         </Row>
       </Column>
     </Drawer>

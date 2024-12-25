@@ -12,6 +12,6 @@ export default meta
 export const Index = {
   args: {
     children: 'Acme Button',
-    isLoading: true,
+    isLoading: false,
   },
 }

@@ -22,7 +22,7 @@ const TabsPanel = (props: TabsPanelProps) => {
               key={tab.value}
               value={tab.value}
               onClick={() => setValue(tab.value)}
-              className="flex items-start justify-start flex-row grow border-r border-r-black"
+              className="flex items-start justify-start flex-row grow [&:not(:last-child)]:border-r  border-r-black"
             >
               {tab.title}
             </TabsTrigger>

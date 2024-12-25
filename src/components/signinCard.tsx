@@ -14,19 +14,19 @@ const LoginCard = (props: LoginCardProps) => {
   return (
     <Card>
       <CardContent>
-        <Column wGrow className="gap-6">
+        <Column wGrow className="gap-4">
           <Column className="gap-2">
             <CardHeader>Acme</CardHeader>
             <CardDescription>Welcome back to Acme</CardDescription>
           </Column>
-          <Column className="gap-4" wGrow>
+          <Column className="gap-4 py-2" wGrow>
             <Input placeholder="Email" label="Email`" />
             <Input placeholder="Password" label="Password" />
             <Button onClick={props.onLogin}>Sign</Button>
             <Separator />
             <Button value={'secondary'}>Sign in via Google</Button>
           </Column>
-          <Row className="gap-2">
+          <Row>
             <ButtonLink href={'/signup'}>Forgot Password</ButtonLink>
           </Row>
         </Column>

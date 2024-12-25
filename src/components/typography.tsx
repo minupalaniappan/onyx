@@ -35,7 +35,7 @@ export const ButtonLink = (props: PropsWithChildren & { href: string }) => {
       >
         {props.children}
       </Link>
-      <ArrowUpRightIcon className="w-3 h-3 stroke  stroke-[3px] stroke-gray-600 relative bottom-[1px]" />
+      <ArrowUpRightIcon className="w-3 h-3 stroke  stroke-[3px] stroke-gray-600 relative" />
     </Row>
   )
 }

@@ -50,6 +50,6 @@ export const OverlayHeader = tw.div<PropsWithChildren>`
 export const InputLabel = tw.label<PropsWithChildren>`
   font-normal
   text-sm
-  text-black
+  text-gray-600
   leading-none
 `

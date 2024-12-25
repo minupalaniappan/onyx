@@ -20,7 +20,7 @@ const SignupCard = (props: SignupCardProps) => {
             <CardDescription>Get started with Acme</CardDescription>
           </Column>
           <Column className="gap-2" wGrow>
-            <Input placeholder="Email" />
+            <Input placeholder="Email" label="Email" />
             <Input placeholder="Password" />
             <Input placeholder="Confirm Password" />
             <Button onClick={props.onSignup}>Sign up</Button>

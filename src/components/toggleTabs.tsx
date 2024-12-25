@@ -20,7 +20,7 @@ const ToggleTabs = (props: ToggleTabsProps) => {
             key={tab.value}
             value={tab.value}
             onClick={() => setValue(tab.value)}
-            className="flex items-center justify-center flex-row grow border-r border-r-black"
+            className="flex items-center justify-center flex-row grow [&:not(:last-child)]:border-r  border-r-black"
           >
             {tab.title}
           </TabsTrigger>

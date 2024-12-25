@@ -39,3 +39,10 @@ export const OverlayHeader = tw.div<PropsWithChildren>`
   text-black
   leading-none
 `
+
+export const InputLabel = tw.label<PropsWithChildren>`
+  font-normal
+  text-sm
+  text-black
+  leading-none
+`

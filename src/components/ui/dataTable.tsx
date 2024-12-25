@@ -41,8 +41,6 @@ export function DataTable<TData, TValue>({
     }
   }, [ref])
 
-  console.info(tableHeight)
-
   return (
     <Column wGrow>
       <Row grow className="w-full h-[40px]">

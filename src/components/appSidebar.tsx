@@ -39,8 +39,8 @@ const AppSidebar = (props: AppSidebarProps) => {
         <SidebarMenu>
           {props.items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild className="px-[16px]">
-                <a href={item.url}>
+              <SidebarMenuButton asChild className="px-[16px] !w-full">
+                <a href={item.url} className="!w-full">
                   {item.icon}
                   <span>{item.title}</span>
                 </a>

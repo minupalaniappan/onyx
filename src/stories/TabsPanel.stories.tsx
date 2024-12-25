@@ -13,12 +13,19 @@ export const Index = {
   args: {
     tabs: [
       {
-        title: 'Tab 1',
-        value: 'tab1',
+        title: 'Account',
+        value: 'account',
+        content: <div>Account</div>,
       },
       {
-        title: 'Tab 2',
-        value: 'tab2',
+        title: 'Billing',
+        value: 'billing',
+        content: <div>Billing</div>,
+      },
+      {
+        title: 'Security',
+        value: 'security',
+        content: <div>Security</div>,
       },
     ],
   },

@@ -14,12 +14,13 @@ const ToggleTabs = (props: ToggleTabsProps) => {
 
   return (
     <Tabs value={value} defaultValue={value}>
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="flex items-start justify-start flex-row grow border-r border-r-black">
         {props.tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}
             value={tab.value}
             onClick={() => setValue(tab.value)}
+            className="flex items-center justify-center flex-row grow border-r border-r-black"
           >
             {tab.title}
           </TabsTrigger>

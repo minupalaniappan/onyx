@@ -16,13 +16,13 @@ const TabsPanel = (props: TabsPanelProps) => {
   return (
     <Column wGrow grow className="h-full">
       <Tabs value={value} defaultValue={value} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="flex flex-row grow">
           {props.tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
               value={tab.value}
               onClick={() => setValue(tab.value)}
-              className="flex items-start justify-start"
+              className="flex items-start justify-start flex-row grow border-r border-r-black"
             >
               {tab.title}
             </TabsTrigger>
@@ -30,9 +30,11 @@ const TabsPanel = (props: TabsPanelProps) => {
         </TabsList>
         <TabsContent
           value={value}
-          className="w-full border border-black h-full"
+          className="w-full border border-black h-full border-t-0"
         >
-          <div>hi</div>
+          <Column wGrow grow className="h-full p-3">
+            {props.tabs.find((tab) => tab.value === value)?.content}
+          </Column>
         </TabsContent>
       </Tabs>
     </Column>

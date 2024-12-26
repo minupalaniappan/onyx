@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +12,7 @@ import {
 } from './ui/sidebar'
 import { Row } from './layout'
 import { LifebuoyIcon } from '@heroicons/react/24/outline'
+import { PanelLeft } from 'lucide-react'
 
 export type AppSidebarProps = {
   items: {
@@ -22,7 +23,8 @@ export type AppSidebarProps = {
 }
 
 const AppSidebar = (props: AppSidebarProps) => {
-  const { open } = useSidebar()
+  const { open, setOpen } = useSidebar()
+  const [headerHover, setHeaderHover] = useState(false)
 
   return (
     <Sidebar>
@@ -34,7 +36,20 @@ const AppSidebar = (props: AppSidebarProps) => {
         between
       >
         <SidebarHeader>
-          <LifebuoyIcon className="h-5 w-5 stroke stroke-black" />
+          {headerHover && !open ? (
+            <PanelLeft
+              className="!w-5 !h-5 cursor-pointer"
+              onClick={() => setOpen(true)}
+              onMouseEnter={() => !open && setHeaderHover(true)}
+              onMouseLeave={() => !open && setHeaderHover(false)}
+            />
+          ) : (
+            <LifebuoyIcon
+              className={`stroke stroke-black w-5 h-5`}
+              onMouseEnter={() => !open && setHeaderHover(true)}
+              onMouseLeave={() => !open && setHeaderHover(false)}
+            />
+          )}
         </SidebarHeader>
         <SidebarTrigger />
       </Row>

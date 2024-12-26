@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
+  useSidebar,
 } from './ui/sidebar'
 import { Row } from './layout'
 import { LifebuoyIcon } from '@heroicons/react/24/outline'
@@ -21,6 +22,8 @@ export type AppSidebarProps = {
 }
 
 const AppSidebar = (props: AppSidebarProps) => {
+  const { open } = useSidebar()
+
   return (
     <Sidebar>
       <Row
@@ -39,10 +42,13 @@ const AppSidebar = (props: AppSidebarProps) => {
         <SidebarMenu>
           {props.items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild className="px-[16px] !w-full">
+              <SidebarMenuButton
+                asChild
+                className={`px-[16px] !w-full ${!open ? 'flex items-center justify-center' : ''}`}
+              >
                 <a href={item.url} className="!w-full">
                   {item.icon}
-                  <span>{item.title}</span>
+                  {open ? <span>{item.title}</span> : null}
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>

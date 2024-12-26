@@ -275,20 +275,29 @@ const SidebarTrigger = React.forwardRef<
 
   return open ? (
     <div className="mr-1">
-      <Button
-        ref={ref}
-        data-sidebar="trigger"
-        variant="ghost"
-        className={cn('h-7 w-7', className)}
-        onClick={(event) => {
-          onClick?.(event)
-          toggleSidebar()
-        }}
-        {...props}
-      >
-        <PanelLeft className="!w-5 !h-5" />
-        <span className="sr-only">Toggle Sidebar</span>
-      </Button>
+      <TooltipProvider>
+        <Tooltip delayDuration={0}>
+          <TooltipTrigger asChild>
+            <Button
+              ref={ref}
+              data-sidebar="trigger"
+              variant="ghost"
+              className={cn('h-7 w-7', className)}
+              onClick={(event) => {
+                onClick?.(event)
+                toggleSidebar()
+              }}
+              {...props}
+            >
+              <PanelLeft className="!w-5 !h-5" />
+              <span className="sr-only">Toggle Sidebar</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Collapse Sidebar</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   ) : (
     ''

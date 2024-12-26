@@ -13,6 +13,12 @@ import {
 import { Row } from './layout'
 import { LifebuoyIcon } from '@heroicons/react/24/outline'
 import { PanelLeft } from 'lucide-react'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip'
 
 export type AppSidebarProps = {
   items: {
@@ -37,12 +43,21 @@ const AppSidebar = (props: AppSidebarProps) => {
       >
         <SidebarHeader>
           {headerHover && !open ? (
-            <PanelLeft
-              className="!w-5 !h-5 cursor-pointer"
-              onClick={() => setOpen(true)}
-              onMouseEnter={() => !open && setHeaderHover(true)}
-              onMouseLeave={() => !open && setHeaderHover(false)}
-            />
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <PanelLeft
+                    className="!w-5 !h-5 cursor-pointer"
+                    onClick={() => setOpen(true)}
+                    onMouseEnter={() => !open && setHeaderHover(true)}
+                    onMouseLeave={() => !open && setHeaderHover(false)}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Expand Sidebar</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           ) : (
             <LifebuoyIcon
               className={`stroke stroke-black w-5 h-5`}
@@ -55,19 +70,34 @@ const AppSidebar = (props: AppSidebarProps) => {
       </Row>
       <SidebarContent>
         <SidebarMenu>
-          {props.items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                asChild
-                className={`px-[16px] !w-full ${!open ? 'flex items-center justify-center' : ''}`}
-              >
-                <a href={item.url} className="!w-full">
-                  {item.icon}
-                  {open ? <span>{item.title}</span> : null}
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {props.items.map((item) => {
+            const node = (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  className={`px-[16px] !w-full ${!open ? 'flex items-center justify-center' : ''}`}
+                >
+                  <a href={item.url} className="!w-full">
+                    {item.icon}
+                    {open ? <span>{item.title}</span> : null}
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
+
+            return open ? (
+              node
+            ) : (
+              <TooltipProvider>
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger asChild>{node}</TooltipTrigger>
+                  <TooltipContent>
+                    <p>{item.title}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )
+          })}
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter />

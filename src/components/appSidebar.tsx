@@ -53,7 +53,7 @@ const AppSidebar = (props: AppSidebarProps) => {
                     onMouseLeave={() => !open && setHeaderHover(false)}
                   />
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent align="center" side="right">
                   <p>Expand Sidebar</p>
                 </TooltipContent>
               </Tooltip>
@@ -91,7 +91,7 @@ const AppSidebar = (props: AppSidebarProps) => {
               <TooltipProvider>
                 <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>{node}</TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent align="center" side="right">
                     <p>{item.title}</p>
                   </TooltipContent>
                 </Tooltip>

@@ -293,7 +293,7 @@ const SidebarTrigger = React.forwardRef<
               <span className="sr-only">Toggle Sidebar</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent align="center" side="right">
             <p>Collapse Sidebar</p>
           </TooltipContent>
         </Tooltip>

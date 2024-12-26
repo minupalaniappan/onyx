@@ -1,5 +1,5 @@
 import { tw } from '@minupalaniappan/brise'
-import { PropsWithChildren } from 'react'
+import { MouseEventHandler, PropsWithChildren } from 'react'
 
 export type ColumnProps = PropsWithChildren & {
   gap?: number
@@ -39,7 +39,7 @@ export type RowProps = PropsWithChildren & {
   y?: 'top' | 'center' | 'bottom'
   className?: string
   between?: boolean
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 export const Row = tw.div<RowProps>`

@@ -117,7 +117,7 @@ const AppSidebar = (props: AppSidebarProps) => {
             <SidebarMenuItem className="px-2 py-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton className="whitespace-nowrap">
                     <Image
                       src={props.user.profilePicture}
                       className="w-4 h-4"

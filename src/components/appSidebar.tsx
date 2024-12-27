@@ -11,14 +11,20 @@ import {
   useSidebar,
 } from './ui/sidebar'
 import { Row } from './layout'
-import { LifebuoyIcon } from '@heroicons/react/24/outline'
-import { PanelLeft } from 'lucide-react'
+import { ChevronUpIcon, LifebuoyIcon } from '@heroicons/react/24/outline'
+import { PanelLeft, User2 } from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from './ui/tooltip'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
 
 export type AppSidebarProps = {
   items: {
@@ -100,7 +106,37 @@ const AppSidebar = (props: AppSidebarProps) => {
           })}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SidebarFooter>
+          <SidebarMenu className="hover:bg-gray-100">
+            <SidebarMenuItem className="px-2 py-1">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton>
+                    <User2 /> Username
+                    <ChevronUpIcon className="ml-auto" />
+                  </SidebarMenuButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  side={!open ? 'right' : 'top'}
+                  className={`w-[--radix-popper-anchor-width] ${!open ? 'relative bottom-2' : ''}`}
+                  sideOffset={!open ? 20 : 10}
+                >
+                  <DropdownMenuItem>
+                    <span>Account</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <span>Billing</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <span>Sign out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      </SidebarFooter>
     </Sidebar>
   )
 }

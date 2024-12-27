@@ -8,7 +8,7 @@ const meta: Meta<typeof AppSidebar> = {
   title: 'Components/Sidebar',
   render: (args) => (
     <SidebarProvider>
-      <AppSidebar items={args.items} />
+      <AppSidebar items={args.items} user={args.user} />
     </SidebarProvider>
   ),
 }
@@ -29,5 +29,9 @@ export const Index = {
         icon: <UsersIcon className="h-4 stroke-2 w-4 stroke stroke-black" />,
       },
     ],
+    user: {
+      name: 'John Doe',
+      profilePicture: 'https://github.com/shadcn.png',
+    },
   },
 }

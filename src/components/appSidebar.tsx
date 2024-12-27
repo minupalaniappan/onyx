@@ -12,7 +12,7 @@ import {
 } from './ui/sidebar'
 import { Row } from './layout'
 import { ChevronUpIcon, LifebuoyIcon } from '@heroicons/react/24/outline'
-import { PanelLeft, User2 } from 'lucide-react'
+import { PanelLeft } from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +25,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import Image from 'next/image'
 
 export type AppSidebarProps = {
   items: {
@@ -32,6 +33,10 @@ export type AppSidebarProps = {
     url: string
     icon: React.ReactNode
   }[]
+  user: {
+    name: string
+    profilePicture: string
+  }
 }
 
 const AppSidebar = (props: AppSidebarProps) => {
@@ -113,7 +118,14 @@ const AppSidebar = (props: AppSidebarProps) => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <SidebarMenuButton>
-                    <User2 /> Username
+                    <Image
+                      src={props.user.profilePicture}
+                      className="w-4 h-4"
+                      alt="Profile Picture"
+                      width={16}
+                      height={16}
+                    />
+                    {props.user.name}
                     <ChevronUpIcon className="ml-auto" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>

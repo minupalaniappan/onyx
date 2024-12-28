@@ -30,7 +30,7 @@ const meta: Meta<typeof DataTable> = {
 
 export default meta
 
-export const Index = {
+export const Table = {
   args: {
     columns,
     data,

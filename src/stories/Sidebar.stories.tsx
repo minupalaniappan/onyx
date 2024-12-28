@@ -15,7 +15,7 @@ const meta: Meta<typeof AppSidebar> = {
 
 export default meta
 
-export const Index = {
+export const Sidebar = {
   args: {
     items: [
       {

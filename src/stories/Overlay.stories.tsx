@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react'
 
-import Overlay from '../components/overlay'
+import OverlayComponent from '../components/overlay'
 import { useState } from 'react'
 import { Column } from '../components/layout'
 import { Button } from '../components/ui/button'
@@ -11,13 +11,13 @@ const OverlayStory = () => {
   return (
     <Column wGrow grow>
       <Button onClick={() => setOpen(true)}>Open</Button>
-      <Overlay
+      <OverlayComponent
         open={open}
         onClose={() => setOpen(false)}
         direction="right"
         onSave={() => setOpen(false)}
-        title="Overlay"
-      ></Overlay>
+        title="Overlay Title"
+      ></OverlayComponent>
     </Column>
   )
 }
@@ -29,7 +29,7 @@ const meta: Meta<typeof Overlay> = {
 
 export default meta
 
-export const Index = {
+export const Overlay = {
   args: {
     direction: 'right',
     onSave: () => {},

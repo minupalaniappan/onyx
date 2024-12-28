@@ -1,15 +1,15 @@
 import type { Meta } from '@storybook/react'
 
-import Tag from '../components/tag'
+import TagComponent from '../components/tag'
 
-const meta: Meta<typeof Tag> = {
+const meta: Meta<typeof TagComponent> = {
   title: 'Components/Tag',
-  render: (args) => <Tag {...args} />,
+  render: (args) => <TagComponent {...args} />,
 }
 
 export default meta
 
-export const Index = {
+export const Tag = {
   args: {
     children: 'Tag',
     onClose: () => {},

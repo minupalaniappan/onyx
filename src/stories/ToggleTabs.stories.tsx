@@ -1,15 +1,15 @@
 import type { Meta } from '@storybook/react'
 
-import ToggleTabs from '../components/toggleTabs'
+import ToggleTabsComponent from '../components/toggleTabs'
 
-const meta: Meta<typeof ToggleTabs> = {
+const meta: Meta<typeof ToggleTabsComponent> = {
   title: 'Components/ToggleTabs',
-  render: (args) => <ToggleTabs {...args} />,
+  render: (args) => <ToggleTabsComponent {...args} />,
 }
 
 export default meta
 
-export const Index = {
+export const ToggleTabs = {
   args: {
     tabs: [
       {

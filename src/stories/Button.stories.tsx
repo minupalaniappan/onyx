@@ -1,17 +1,17 @@
 import type { Meta } from '@storybook/react'
 
-import { Button } from '@/components/ui/button'
+import { Button as ButtonComponent } from '@/components/ui/button'
 
-const meta: Meta<typeof Button> = {
+const meta: Meta<typeof ButtonComponent> = {
   title: 'Components/Button',
-  render: (args) => <Button {...args} />,
+  render: (args) => <ButtonComponent {...args} />,
 }
 
 export default meta
 
-export const Index = {
+export const Button = {
   args: {
     children: 'Acme Button',
-    isLoading: false,
+    isLoading: true,
   },
 }

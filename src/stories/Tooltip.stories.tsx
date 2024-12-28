@@ -2,31 +2,31 @@ import type { Meta } from '@storybook/react'
 
 import Tag from '../components/tag'
 import {
-  Tooltip,
+  Tooltip as TooltipComponent,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '../components/ui/tooltip'
 
-const meta: Meta<typeof Tooltip> = {
+const meta: Meta<typeof TooltipComponent> = {
   title: 'Components/Tooltip',
   render: () => (
     <TooltipProvider>
-      <Tooltip delayDuration={0}>
+      <TooltipComponent delayDuration={0}>
         <TooltipTrigger>
           <Tag>Trigger</Tag>
         </TooltipTrigger>
         <TooltipContent align="center" side="right">
           <p>Tooltip content</p>
         </TooltipContent>
-      </Tooltip>
+      </TooltipComponent>
     </TooltipProvider>
   ),
 }
 
 export default meta
 
-export const Index = {
+export const Tooltip = {
   args: {
     children: 'Tag',
   },

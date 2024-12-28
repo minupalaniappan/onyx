@@ -1,18 +1,17 @@
 import type { Meta } from '@storybook/react'
 
-import Overlay from '../components/overlay'
 import {
-  Select,
+  Select as SelectComponent,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select'
 
-const meta: Meta<typeof Overlay> = {
+const meta: Meta<typeof SelectComponent> = {
   title: 'Components/Select',
   render: () => (
-    <Select>
+    <SelectComponent>
       <SelectTrigger>
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
@@ -21,12 +20,12 @@ const meta: Meta<typeof Overlay> = {
         <SelectItem value="acme-b">Acme B</SelectItem>
         <SelectItem value="acme-c">Acme C</SelectItem>
       </SelectContent>
-    </Select>
+    </SelectComponent>
   ),
 }
 
 export default meta
 
-export const Index = {
+export const Select = {
   args: {},
 }

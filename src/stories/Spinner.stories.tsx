@@ -1,11 +1,11 @@
 import { Meta } from '@storybook/react'
-import Spinner from '../components/spinner'
+import SpinnerComponent from '../components/spinner'
 
 const meta = {
   title: 'Components/Spinner',
-  component: Spinner,
-} satisfies Meta<typeof Spinner>
+  component: SpinnerComponent,
+} satisfies Meta<typeof SpinnerComponent>
 
 export default meta
 
-export const Default = () => <Spinner />
+export const Spinner = () => <SpinnerComponent />

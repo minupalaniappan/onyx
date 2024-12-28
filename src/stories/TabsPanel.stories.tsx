@@ -1,15 +1,15 @@
 import type { Meta } from '@storybook/react'
 
-import TabsPanel from '../components/tabsPanel'
+import TabsPanelComponent from '../components/tabsPanel'
 
-const meta: Meta<typeof TabsPanel> = {
+const meta: Meta<typeof TabsPanelComponent> = {
   title: 'Components/TabsPanel',
-  render: (args) => <TabsPanel {...args} />,
+  render: (args) => <TabsPanelComponent {...args} />,
 }
 
 export default meta
 
-export const Index = {
+export const TabsPanel = {
   args: {
     tabs: [
       {

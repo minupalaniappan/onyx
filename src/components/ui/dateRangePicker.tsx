@@ -33,7 +33,7 @@ export const DatePickerWithRange = ({
             id="date"
             variant={'outline'}
             className={cn(
-              'w-[300px] justify-start text-left font-light text-sm !border-black',
+              'w-[249px] justify-start text-left font-light text-sm !border-black',
               !date && 'text-muted-foreground',
             )}
           >
@@ -58,7 +58,11 @@ export const DatePickerWithRange = ({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={(e) => {
+              if (e && e.from && e.to) {
+                setDate({ from: e.from, to: e.to })
+              }
+            }}
             numberOfMonths={2}
           />
         </PopoverContent>

@@ -12,6 +12,5 @@ export default meta
 export const Button = {
   args: {
     children: 'Acme Button',
-    isLoading: true,
   },
 }

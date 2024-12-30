@@ -7,6 +7,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { cn } from '../../lib/utils'
+import { InputLabel } from '../typography'
 type FileUploadProps = {
   onDrop: (files: File[]) => void
   files: File[]
@@ -47,27 +48,31 @@ export const FileUpload = (props: FileUploadProps) => {
         </Column>
       </div>
       {props.files.length > 0 && (
-        <Column
-          wGrow
-          className="w-full max-h-[300px] overflow-y-scroll bg-gray-100 p-2 border border-black gap-2"
-        >
-          {props.files.map((e) => (
-            <Row
-              key={e.name}
-              y="center"
-              grow
-              between
-              className="border border-black bg-white px-4 py-2 w-full"
-            >
-              <p>{e.name}</p>
-              <XMarkIcon
-                className="h-4 w-4 cursor-pointer hover:bg-gray-200"
-                onClick={() =>
-                  props.setFiles(props.files.filter((f) => f.name !== e.name))
-                }
-              />
-            </Row>
-          ))}
+        <Column wGrow className="w-full bg-gray-100 border border-black gap-2">
+          <Row grow className="w-full border-b border-black">
+            <Column className="p-2 px-3">
+              <InputLabel>{props.files.length} files</InputLabel>
+            </Column>
+          </Row>
+          <Column wGrow className="gap-2 p-2 max-h-[300px] overflow-y-scroll">
+            {props.files.map((e) => (
+              <Row
+                key={e.name}
+                y="center"
+                grow
+                between
+                className="border border-black bg-white px-4 py-2 w-full"
+              >
+                <p>{e.name}</p>
+                <XMarkIcon
+                  className="h-4 w-4 cursor-pointer hover:bg-gray-200"
+                  onClick={() =>
+                    props.setFiles(props.files.filter((f) => f.name !== e.name))
+                  }
+                />
+              </Row>
+            ))}
+          </Column>
         </Column>
       )}
     </Column>

@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-type FileUploadProps = {}
+type FileUploadProps = {
+  onDrop: (files: File[]) => void
+}
 
-const FileUpload = (props: FileUploadProps) => {
+export const FileUpload = (props: FileUploadProps) => {
+  console.info('FileUpload', props)
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log(acceptedFiles)
     // Do something with the files

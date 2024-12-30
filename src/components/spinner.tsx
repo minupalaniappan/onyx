@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '../lib/utils'
 
-const Spinner = (props: { size?: 'sm' | 'md' | 'lg' }) => {
+const Spinner = (props: { size?: 'sm' | 'md' | 'lg' | 'xs' }) => {
   return (
     <div role="status">
       <svg
@@ -11,6 +11,7 @@ const Spinner = (props: { size?: 'sm' | 'md' | 'lg' }) => {
           props.size === 'sm' && 'w-4 h-4',
           props.size === 'md' && 'w-6 h-6',
           props.size === 'lg' && 'w-8 h-8',
+          props.size === 'xs' && 'w-3 h-3',
         )}
         viewBox="0 0 100 101"
         fill="none"

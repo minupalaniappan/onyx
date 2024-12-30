@@ -5,8 +5,9 @@ import { useState } from 'react'
 
 const FileUploadComponentLocal = () => {
   const [files, setFiles] = useState<File[]>([])
-  const onDrop = (files: File[]) => {
+  const onDrop = async (files: File[]) => {
     setFiles(files)
+    await new Promise((resolve) => setTimeout(resolve, 4000))
   }
   return (
     <FileUploadComponent files={files} onDrop={onDrop} setFiles={setFiles} />

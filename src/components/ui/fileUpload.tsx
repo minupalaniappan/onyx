@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Column, Row } from '../layout'
 import {
@@ -8,16 +8,21 @@ import {
 } from '@heroicons/react/24/outline'
 import { cn } from '../../lib/utils'
 import { InputLabel } from '../typography'
+import Spinner from '../spinner'
 type FileUploadProps = {
-  onDrop: (files: File[]) => void
+  onDrop: (files: File[]) => Promise<void>
   files: File[]
   setFiles: (files: File[]) => void
 }
 
 export const FileUpload = (props: FileUploadProps) => {
+  const [loading, setLoading] = useState(false)
+
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      props.onDrop(acceptedFiles)
+    async (acceptedFiles: File[]) => {
+      setLoading(true)
+      await props.onDrop(acceptedFiles)
+      setLoading(false)
       // Do something with the files
     },
     [props],
@@ -50,9 +55,10 @@ export const FileUpload = (props: FileUploadProps) => {
       {props.files.length > 0 && (
         <Column wGrow className="w-full bg-gray-100 border border-black gap-2">
           <Row grow className="w-full border-b border-black">
-            <Column className="p-2 px-3">
+            <Row className="p-2 px-3" y="center" between grow>
               <InputLabel>{props.files.length} files</InputLabel>
-            </Column>
+              {loading && <Spinner size="xs" />}
+            </Row>
           </Row>
           <Column wGrow className="gap-2 p-2 max-h-[300px] overflow-y-scroll">
             {props.files.map((e) => (
@@ -65,7 +71,10 @@ export const FileUpload = (props: FileUploadProps) => {
               >
                 <p>{e.name}</p>
                 <XMarkIcon
-                  className="h-4 w-4 cursor-pointer hover:bg-gray-200"
+                  className={cn(
+                    'h-4 w-4 cursor-pointer hover:bg-gray-200',
+                    loading ? 'pointer-events-none opacity-50' : '',
+                  )}
                   onClick={() =>
                     props.setFiles(props.files.filter((f) => f.name !== e.name))
                   }

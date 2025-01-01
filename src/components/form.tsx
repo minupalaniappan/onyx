@@ -5,7 +5,7 @@ import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 type FormProps = {
-  schema: z.AnyZodObject
+  schema: z.AnyZodObject | z.ZodEffects<z.AnyZodObject>
   defaultValues: z.infer<z.AnyZodObject>
   onSubmit: (data: z.infer<z.AnyZodObject>) => void
   children: (props: { form: UseFormReturn }) => React.ReactNode

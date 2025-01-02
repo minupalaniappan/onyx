@@ -3,7 +3,7 @@ import { useDroppable } from '@dnd-kit/core'
 import { cn } from '../lib/utils'
 
 export type EventListDropzone = {
-  children: React.ReactNode
+  children?: React.ReactNode
   className?: string
 }
 

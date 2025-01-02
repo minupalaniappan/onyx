@@ -1,11 +1,8 @@
 import type { Meta } from '@storybook/react'
 
-import { useState } from 'react'
 import DraggableEventListComponent from '../components/draggableEventList'
 
 const Component = () => {
-  const [events, setEvents] = useState<Event[]>([])
-
   return <DraggableEventListComponent />
 }
 

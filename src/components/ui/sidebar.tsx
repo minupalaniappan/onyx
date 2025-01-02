@@ -90,6 +90,7 @@ const SidebarProvider = React.forwardRef<
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
       return setOpen((open) => !open)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile, setOpen, setOpenMobile])
 
     // Adds a keyboard shortcut to toggle the sidebar.

@@ -6,8 +6,10 @@ export const DraggableHandle = ({ rowId }: { rowId: string }) => {
     id: rowId,
   })
   return (
-    <div {...attributes} {...listeners}>
-      <Bars3Icon className="w-4 h-4 stroke stroke-black" />
-    </div>
+    <Bars3Icon
+      className="w-4 h-4 stroke stroke-black"
+      {...attributes}
+      {...listeners}
+    />
   )
 }

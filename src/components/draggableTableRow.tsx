@@ -4,7 +4,6 @@ import { Row as ReactTableRow } from '@tanstack/react-table'
 
 import { flexRender } from '@tanstack/react-table'
 import { CSSProperties } from 'react'
-import { Row } from './layout'
 import { cn } from '../lib/utils'
 import { TableCell } from './ui/table'
 
@@ -19,6 +18,8 @@ export const DraggableTableRow = <T,>({
     id: row.id,
   })
 
+  console.info(isDragging)
+
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform), //let dnd-kit do its thing
     transition: transition,
@@ -29,19 +30,19 @@ export const DraggableTableRow = <T,>({
 
   return (
     // connect row ref to dnd-kit, apply important styles
-    <div ref={setNodeRef} style={style} className="w-full flex">
-      <Row
-        className={cn(
-          'border-b transition-colors data-[state=selected] bg-gray-100 rounded-none border-black w-full',
-          className,
-        )}
-      >
-        {row.getVisibleCells().map((cell) => (
-          <TableCell key={cell.id}>
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </TableCell>
-        ))}
-      </Row>
+    <div
+      className={cn(
+        'border-b transition-colors data-[state=selected] bg-gray-100 rounded-none border-black w-full flex flex-row',
+        className,
+      )}
+      ref={setNodeRef}
+      style={style}
+    >
+      {row.getVisibleCells().map((cell) => (
+        <TableCell key={cell.id}>
+          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        </TableCell>
+      ))}
     </div>
   )
 }

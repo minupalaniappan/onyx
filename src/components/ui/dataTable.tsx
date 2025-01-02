@@ -120,43 +120,36 @@ export function DataTable<TData extends { id: string }, TValue>({
   }, [ref])
 
   const tNode = isDraggable ? (
-    <DndContext
-      collisionDetection={closestCenter}
-      modifiers={[restrictToVerticalAxis]}
-      onDragEnd={handleDragEnd}
-      sensors={sensors}
-    >
-      <Table className="h-full bg-gray-100 relative">
-        <TableBody>
-          <SortableContext
-            items={tableData.map(({ id }) => id)}
-            strategy={verticalListSortingStrategy}
-          >
-            {table.getRowModel().rows?.length ? (
-              table
-                .getRowModel()
-                .rows.map((row) => (
-                  <DraggableTableRow
-                    key={row.id}
-                    row={row}
-                    data-state={row.getIsSelected() && 'selected'}
-                    className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-                  />
-                ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-full text-center"
-                >
-                  No results
-                </TableCell>
-              </TableRow>
-            )}
-          </SortableContext>
-        </TableBody>
-      </Table>
-    </DndContext>
+    <Table className="h-full bg-gray-100 relative">
+      <TableBody>
+        <SortableContext
+          items={tableData.map(({ id }) => id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {table.getRowModel().rows?.length ? (
+            table
+              .getRowModel()
+              .rows.map((row) => (
+                <DraggableTableRow
+                  key={row.id}
+                  row={row}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+                />
+              ))
+          ) : (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-full text-center"
+              >
+                No results
+              </TableCell>
+            </TableRow>
+          )}
+        </SortableContext>
+      </TableBody>
+    </Table>
   ) : (
     <Table className="h-full bg-gray-100 relative">
       <TableBody>
@@ -186,65 +179,72 @@ export function DataTable<TData extends { id: string }, TValue>({
   )
 
   return (
-    <Column wGrow>
-      <Row grow className="w-full h-[40px]">
-        {onSearch ? (
-          <TableSearch onSearch={onSearch} search={search ?? ''} />
-        ) : (
-          ''
-        )}
-        {onPageChange ? (
-          <Paginator
-            page={page ?? 1}
-            totalPages={totalPages ?? 10}
-            onPageChange={onPageChange}
-          />
-        ) : (
-          ''
-        )}
-      </Row>
-      <Row
-        grow
-        className="w-full h-[40px] border-l border-black px-2 border-t border-r items-center "
-      >
-        {table.getHeaderGroups().map((headerGroup) => (
-          <Row key={headerGroup.id} className="bg-white w-full">
-            {headerGroup.headers.map((header) => {
-              return (
-                <div key={header.id} className="text-xs w-full">
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </div>
-              )
-            })}
-          </Row>
-        ))}
-      </Row>
-      <div
-        className="border border-black overflow-y-scroll w-full"
-        style={{
-          height: 'calc(100vh - 110px)',
-          maxHeight: 'calc(100vh - 110px)',
-          overflow: isLoading ? 'hidden' : 'scroll',
-        }}
-        ref={ref}
-      >
-        {isLoading ? (
-          <Column className="gap-2 p-2" wGrow grow>
-            {Array.from({ length: tableHeight / 20 }).map((_, index) => (
-              <Row key={index} grow className="h-[20px] w-full">
-                <Skeleton className="!w-full !h-[20px] rounded-none" />
-              </Row>
-            ))}
-          </Column>
-        ) : (
-          tNode
-        )}
-      </div>
-    </Column>
+    <DndContext
+      collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
+      <Column wGrow>
+        <Row grow className="w-full h-[40px]">
+          {onSearch ? (
+            <TableSearch onSearch={onSearch} search={search ?? ''} />
+          ) : (
+            ''
+          )}
+          {onPageChange ? (
+            <Paginator
+              page={page ?? 1}
+              totalPages={totalPages ?? 10}
+              onPageChange={onPageChange}
+            />
+          ) : (
+            ''
+          )}
+        </Row>
+        <Row
+          grow
+          className="w-full h-[40px] border-l border-black px-2 border-t border-r items-center "
+        >
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Row key={headerGroup.id} className="bg-white w-full">
+              {headerGroup.headers.map((header) => {
+                return (
+                  <div key={header.id} className="text-xs w-full">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </div>
+                )
+              })}
+            </Row>
+          ))}
+        </Row>
+        <div
+          className="border border-black overflow-y-scroll w-full"
+          style={{
+            height: 'calc(100vh - 110px)',
+            maxHeight: 'calc(100vh - 110px)',
+            overflow: isLoading ? 'hidden' : 'scroll',
+          }}
+          ref={ref}
+        >
+          {isLoading ? (
+            <Column className="gap-2 p-2" wGrow grow>
+              {Array.from({ length: tableHeight / 20 }).map((_, index) => (
+                <Row key={index} grow className="h-[20px] w-full">
+                  <Skeleton className="!w-full !h-[20px] rounded-none" />
+                </Row>
+              ))}
+            </Column>
+          ) : (
+            tNode
+          )}
+        </div>
+      </Column>
+    </DndContext>
   )
 }

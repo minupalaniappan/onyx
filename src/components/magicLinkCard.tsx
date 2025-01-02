@@ -11,14 +11,16 @@ const MagicLinkCard = () => {
     <Card>
       <CardContent>
         <Column wGrow className="gap-4">
-          <Column className="gap-2 w-full">
-            <CardHeader>Acme</CardHeader>
-            <CardDescription>Magic Link</CardDescription>
+          <Column className="gap-8 w-full">
+            <Column className="gap-2">
+              <CardHeader>Acme</CardHeader>
+              <CardDescription>Magic Link</CardDescription>
+            </Column>
             <Column
               y="center"
               x="center"
               grow
-              className="w-full gap-8 bg-gray-100 py-8"
+              className="w-full gap-4 bg-gray-100 py-8 border border-black"
             >
               <Column className="gap-2" y="center" x="center">
                 <Mail className="w-8 h-8 stroke-slate-600" />

@@ -5,7 +5,7 @@ import { Row } from '@tanstack/react-table'
 import { flexRender } from '@tanstack/react-table'
 import { CSSProperties } from 'react'
 
-export const DraggableRow = <T,>({ row }: { row: Row<T> }) => {
+export const DraggableTableRow = <T,>({ row }: { row: Row<T> }) => {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.id,
   })

@@ -1,7 +1,8 @@
-import type { Meta } from '@storybook/react'
+import { useState } from 'react'
 
 import { DataTable } from '../components/ui/dataTable'
-import { useState } from 'react'
+
+import type { Meta } from '@storybook/react'
 
 const columns = [
   {
@@ -27,7 +28,7 @@ const data = Array.from({ length: 100 }, (_, index) => ({
 const meta: Meta<typeof DataTable> = {
   title: 'Components/Table',
   render: function Component(args) {
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(args.page ?? 1)
 
     return <DataTable {...args} page={page} onPageChange={setPage} />
   },
@@ -44,6 +45,7 @@ export const Table = {
     search: 'John',
     page: 1,
     isLoading: false,
+    isDraggable: false,
     totalPages: 10,
   },
 }

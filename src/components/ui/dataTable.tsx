@@ -4,6 +4,7 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  Row as ReactTableRow,
   useReactTable,
 } from '@tanstack/react-table'
 
@@ -12,9 +13,27 @@ import { Column, Row } from '../layout'
 import TableSearch from '../tableSearch'
 import Paginator from '../paginator'
 import { Skeleton } from './skeleton'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { DraggableTableRow } from '../draggableTableRow'
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   isLoading?: boolean
@@ -26,20 +45,67 @@ interface DataTableProps<TData, TValue> {
   search?: string
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
-  data,
+  data: tableData,
   isLoading,
+  isDraggable,
   onSearch,
   onPageChange,
   page,
   search,
   totalPages,
 }: DataTableProps<TData, TValue>) {
+  const [data, setData] = useState(tableData)
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {}),
+    useSensor(TouchSensor, {}),
+    useSensor(KeyboardSensor, {}),
+  )
+
+  const dataIds = useMemo<UniqueIdentifier[]>(
+    () => data?.map(({ id }) => id),
+    [data],
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (active && over && active.id !== over.id) {
+      setData((data) => {
+        const oldIndex = dataIds.indexOf(active.id)
+        const newIndex = dataIds.indexOf(over.id)
+        return arrayMove(data, oldIndex, newIndex) //this is just a splice util
+      })
+    }
+  }
+
+  const tableColumns = useMemo(() => {
+    if (isDraggable) {
+      const newColumns = [
+        {
+          id: 'drag-handle',
+          header: 'Move',
+          cell: ({ row }: { row: ReactTableRow<TData> }) => (
+            <DraggableTableRow row={row} />
+          ),
+          size: 60,
+        },
+        ...columns,
+      ]
+
+      return newColumns
+    } else {
+      return columns
+    }
+  }, [columns, isDraggable])
+
   const table = useReactTable({
-    data,
-    columns,
+    data: tableData,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
+    debugAll: true,
+    getRowId: (row) => row.id,
   })
 
   const ref = useRef<HTMLDivElement>(null)
@@ -51,6 +117,78 @@ export function DataTable<TData, TValue>({
       setTableHeight(ref.current.clientHeight)
     }
   }, [ref])
+
+  const tNode = isDraggable ? (
+    <DndContext
+      collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
+      <Table className="h-full bg-gray-100 relative">
+        <TableBody>
+          <SortableContext
+            items={tableData.map(({ id }) => id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-full text-center"
+                >
+                  No results
+                </TableCell>
+              </TableRow>
+            )}
+          </SortableContext>
+        </TableBody>
+      </Table>
+    </DndContext>
+  ) : (
+    <Table className="h-full bg-gray-100 relative">
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && 'selected'}
+              className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="h-full text-center">
+              No results
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
+  )
 
   return (
     <Column wGrow>
@@ -109,37 +247,7 @@ export function DataTable<TData, TValue>({
             ))}
           </Column>
         ) : (
-          <Table className="h-full bg-gray-100 relative">
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && 'selected'}
-                    className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-full text-center"
-                  >
-                    No results
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+          tNode
         )}
       </div>
     </Column>

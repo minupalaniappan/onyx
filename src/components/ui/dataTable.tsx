@@ -32,6 +32,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
+import { DraggableHandle } from './draggableHandle'
 
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -87,7 +88,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           id: 'drag-handle',
           header: 'Move',
           cell: ({ row }: { row: ReactTableRow<TData> }) => (
-            <DraggableTableRow row={row} />
+            <DraggableHandle rowId={row.id} />
           ),
           size: 60,
         },
@@ -132,22 +133,16 @@ export function DataTable<TData extends { id: string }, TValue>({
             strategy={verticalListSortingStrategy}
           >
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table
+                .getRowModel()
+                .rows.map((row) => (
+                  <DraggableTableRow
+                    key={row.id}
+                    row={row}
+                    data-state={row.getIsSelected() && 'selected'}
+                    className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+                  />
+                ))
             ) : (
               <TableRow>
                 <TableCell

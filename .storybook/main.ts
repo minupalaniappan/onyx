@@ -12,7 +12,6 @@ const config: StorybookConfig = {
     name: '@storybook/nextjs',
     options: {},
   },
-  staticDirs: ["../public", { from: "../public/fonts", to: "public/fonts" }]
-
+  staticDirs: ['../public', { from: '../public/fonts', to: 'public/fonts' }],
 }
 export default config

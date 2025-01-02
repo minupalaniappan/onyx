@@ -18,12 +18,17 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   isLoading?: boolean
+  isDraggable?: boolean
+  onSearch?: (search: string) => void
+  onPageChange?: (page: number) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   isLoading,
+  onSearch,
+  onPageChange,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -44,8 +49,12 @@ export function DataTable<TData, TValue>({
   return (
     <Column wGrow>
       <Row grow className="w-full h-[40px]">
-        <TableSearch onSearch={() => {}} />
-        <Paginator page={1} totalPages={10} onPageChange={() => {}} />
+        {onSearch ? <TableSearch onSearch={onSearch} /> : ''}
+        {onPageChange ? (
+          <Paginator page={1} totalPages={10} onPageChange={onPageChange} />
+        ) : (
+          ''
+        )}
       </Row>
       <Row
         grow

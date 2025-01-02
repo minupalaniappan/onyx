@@ -34,5 +34,7 @@ export const Table = {
   args: {
     columns,
     data,
+    onSearch: (e: string) => console.info(e),
+    onPageChange: (e: number) => console.info(e),
   },
 }

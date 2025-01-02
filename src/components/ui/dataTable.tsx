@@ -21,6 +21,9 @@ interface DataTableProps<TData, TValue> {
   isDraggable?: boolean
   onSearch?: (search: string) => void
   onPageChange?: (page: number) => void
+  page?: number
+  totalPages?: number
+  search?: string
 }
 
 export function DataTable<TData, TValue>({
@@ -29,6 +32,9 @@ export function DataTable<TData, TValue>({
   isLoading,
   onSearch,
   onPageChange,
+  page,
+  search,
+  totalPages,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -49,9 +55,17 @@ export function DataTable<TData, TValue>({
   return (
     <Column wGrow>
       <Row grow className="w-full h-[40px]">
-        {onSearch ? <TableSearch onSearch={onSearch} /> : ''}
+        {onSearch ? (
+          <TableSearch onSearch={onSearch} search={search ?? ''} />
+        ) : (
+          ''
+        )}
         {onPageChange ? (
-          <Paginator page={1} totalPages={10} onPageChange={onPageChange} />
+          <Paginator
+            page={page ?? 1}
+            totalPages={totalPages ?? 10}
+            onPageChange={onPageChange}
+          />
         ) : (
           ''
         )}

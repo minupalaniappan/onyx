@@ -10,9 +10,11 @@ import { TableCell } from './ui/table'
 export const DraggableTableRow = <T,>({
   row,
   className,
+  additionalStyle,
 }: {
   row: ReactTableRow<T>
   className?: string
+  additionalStyle?: CSSProperties
 }) => {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.id,
@@ -26,6 +28,7 @@ export const DraggableTableRow = <T,>({
     opacity: isDragging ? 0.8 : 1,
     zIndex: isDragging ? 1 : 0,
     position: 'relative',
+    ...additionalStyle,
   }
 
   return (
@@ -39,7 +42,16 @@ export const DraggableTableRow = <T,>({
       style={style}
     >
       {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
+        <TableCell
+          key={cell.id}
+          style={
+            cell.column.columnDef.size
+              ? {
+                  width: cell.column.columnDef.size,
+                }
+              : {}
+          }
+        >
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>
       ))}

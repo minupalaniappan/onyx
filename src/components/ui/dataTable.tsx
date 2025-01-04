@@ -92,7 +92,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           cell: ({ row }: { row: ReactTableRow<TData> }) => (
             <DraggableHandle rowId={row.id} />
           ),
-          size: 60,
+          size: 50,
         },
         ...columns,
       ]
@@ -211,8 +211,19 @@ export function DataTable<TData extends { id: string }, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <Row key={headerGroup.id} className="bg-white w-full">
               {headerGroup.headers.map((header) => {
+                console.info(header)
                 return (
-                  <div key={header.id} className="text-xs w-full">
+                  <div
+                    key={header.id}
+                    className="text-xs w-full"
+                    style={
+                      header.column.columnDef.size
+                        ? {
+                            width: header.column.columnDef.size,
+                          }
+                        : {}
+                    }
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(

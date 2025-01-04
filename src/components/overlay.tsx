@@ -8,7 +8,6 @@ type Props = {
   open: boolean
   direction: 'left' | 'right'
   onClose?: () => void
-  onSave: () => void
   title: string
 } & PropsWithChildren
 
@@ -36,6 +35,9 @@ const Overlay = (props: Props) => {
             </Row>
           ) : null}
         </Row>
+        <Column wGrow className="w-full p-4">
+          {props.children}
+        </Column>
       </Column>
     </Drawer>
   )

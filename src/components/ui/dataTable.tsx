@@ -44,6 +44,8 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   page?: number
   totalPages?: number
   search?: string
+  onSelect?: (rows: TData[]) => void
+  onDelete?: (rows: TData[]) => void
 }
 
 export function DataTable<TData extends { id: string }, TValue>({

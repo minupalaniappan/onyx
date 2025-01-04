@@ -4,6 +4,28 @@ import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { Row } from './layout'
 
+export type AttributeSize = 'sm' | 'md' | 'lg'
+
+export const AttributeLabel = tw.div<
+  PropsWithChildren & { size?: AttributeSize }
+>`
+  font-light
+  text-md
+  text-gray-600
+  leading-none
+  ${({ size = 'md' }) => (size === 'lg' ? 'text-lg' : 'text-md')}
+`
+
+export const AttributeValue = tw.div<
+  PropsWithChildren & { size?: AttributeSize }
+>`
+  font-light
+  text-lg
+  text-black
+  leading-none
+  ${({ size = 'md' }) => (size === 'lg' ? 'text-2xl' : 'text-md')}
+`
+
 export const CardHeader = tw.div<PropsWithChildren>`
   font-normal
   text-xl

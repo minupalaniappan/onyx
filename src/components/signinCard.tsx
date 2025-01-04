@@ -8,19 +8,20 @@ import { Separator } from './ui/separator'
 import { z } from 'zod'
 import Form from './form'
 import { FormControl, FormField, FormItem } from './ui/form'
+
+const signInSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+})
+
 type LoginCardProps = {
-  onLogin: () => void
+  onLogin: (e: z.infer<typeof signInSchema>) => void
 }
 
 const LoginCard = (props: LoginCardProps) => {
-  const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(1),
-  })
-
   return (
     <Form
-      schema={formSchema}
+      schema={signInSchema}
       defaultValues={{ email: '', password: '' }}
       onSubmit={props.onLogin}
     >

@@ -194,7 +194,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           ) : (
             ''
           )}
-          {onPageChange ? (
+          {onPageChange && !isDraggable ? (
             <Paginator
               page={page ?? 1}
               totalPages={totalPages ?? 10}

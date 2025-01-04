@@ -90,9 +90,12 @@ export function DataTable<TData extends { id: string }, TValue>({
           id: 'drag-handle',
           header: 'Move',
           cell: ({ row }: { row: ReactTableRow<TData> }) => (
-            <DraggableHandle rowId={row.id} />
+            <DraggableHandle
+              rowId={row.id}
+              className="relative top-[1px] left-[5px]"
+            />
           ),
-          size: 50,
+          size: 200,
         },
         ...columns,
       ]
@@ -163,7 +166,16 @@ export function DataTable<TData extends { id: string }, TValue>({
               className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
             >
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
+                <TableCell
+                  key={cell.id}
+                  style={
+                    cell.column.columnDef.size
+                      ? {
+                          width: cell.column.columnDef.size,
+                        }
+                      : {}
+                  }
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
@@ -221,7 +233,9 @@ export function DataTable<TData extends { id: string }, TValue>({
                         ? {
                             width: header.column.columnDef.size,
                           }
-                        : {}
+                        : {
+                            width: '100% !important',
+                          }
                     }
                   >
                     {header.isPlaceholder

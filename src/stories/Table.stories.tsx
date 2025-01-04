@@ -8,14 +8,17 @@ const columns = [
   {
     header: 'Name',
     accessorKey: 'name',
+    size: undefined,
   },
   {
     header: 'Age',
     accessorKey: 'age',
+    size: undefined,
   },
   {
     header: 'Email',
     accessorKey: 'email',
+    size: undefined,
   },
 ]
 

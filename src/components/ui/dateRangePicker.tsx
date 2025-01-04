@@ -12,59 +12,81 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { Row } from '../layout'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export type DatePickerWithRangeProps = {
   date: {
     from: Date
     to: Date
   }
-  setDate: (date: { from: Date; to: Date }) => void
+  setDate: (date?: { from?: Date; to?: Date }) => void
 }
 
 export const DatePickerWithRange = ({
   date,
   setDate,
 }: DatePickerWithRangeProps) => {
+  const ref = React.useRef<HTMLDivElement>(null)
+
   return (
     <div className={cn('grid gap-2')}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button
-            id="date"
-            variant={'outline'}
-            className={cn(
-              'w-[249px] justify-start text-left font-light text-sm !border-black',
-              !date && 'text-muted-foreground',
-            )}
-          >
-            <CalendarIcon className="!w-3 !h-3" />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, 'LLL dd, y')} -{' '}
-                  {format(date.to, 'LLL dd, y')}
-                </>
-              ) : (
-                format(date.from, 'LLL dd, y')
-              )
+          <Row y="center">
+            <Button
+              id="date"
+              variant={'outline'}
+              className={cn(
+                'justify-start !w-[249px] text-left font-light text-sm !border-black',
+                !date && 'text-muted-foreground',
+              )}
+            >
+              <Row grow y="center" className="gap-2">
+                <CalendarIcon className="!w-3 !h-3" />
+                {date?.from ? (
+                  date.to ? (
+                    <>
+                      {format(date.from, 'LLL dd, y')} -{' '}
+                      {format(date.to, 'LLL dd, y')}
+                    </>
+                  ) : (
+                    format(date.from, 'LLL dd, y')
+                  )
+                ) : (
+                  <span>Pick a date</span>
+                )}
+              </Row>
+            </Button>
+            {date ? (
+              <XMarkIcon
+                className=" !w-[12px] !h-[12px] stroke-2 hover:bg-gray-300 relative cursor-pointer right-[25px] cursor-pointer"
+                {...{
+                  onClick: () => {
+                    setDate(undefined)
+                  },
+                }}
+              />
             ) : (
-              <span>Pick a date</span>
+              ''
             )}
-          </Button>
+          </Row>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={(e) => {
-              if (e && e.from && e.to) {
-                setDate({ from: e.from, to: e.to })
-              }
-            }}
-            numberOfMonths={2}
-          />
+          <div ref={ref}>
+            <Calendar
+              initialFocus
+              mode="range"
+              defaultMonth={date?.from}
+              selected={date}
+              onSelect={(e) => {
+                if (e) {
+                  setDate({ from: e.from ?? undefined, to: e.to ?? undefined })
+                }
+              }}
+              numberOfMonths={2}
+            />
+          </div>
         </PopoverContent>
       </Popover>
     </div>

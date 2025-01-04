@@ -54,7 +54,7 @@ const EditProfileSettingsOverlay = (props: EditProfileSettingsOverlayProps) => {
         onSubmit={onSubmit}
       >
         {(form) => (
-          <Column wGrow className="w-full h-full">
+          <Column wGrow className="w-full h-full justify-between">
             <Column wGrow className="gap-4 h-full">
               <FormField
                 control={form.form.control}

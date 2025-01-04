@@ -28,14 +28,14 @@ const Overlay = (props: Props) => {
             <Row
               y="center"
               x="center"
-              className="border-l border-black h-full w-fit p-4 hover:bg-gray-100 cursor-pointer"
+              className="border-l border-black w-fit p-4 hover:bg-gray-100 cursor-pointer"
               onClick={props.onClose}
             >
               <XMarkIcon className="h-6 w-6" />
             </Row>
           ) : null}
         </Row>
-        <Column wGrow className="w-full p-4">
+        <Column wGrow className="w-full h-full p-4">
           {props.children}
         </Column>
       </Column>

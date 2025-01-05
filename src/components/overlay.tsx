@@ -17,9 +17,9 @@ const Overlay = (props: Props) => {
       open={props.open}
       direction={props.direction}
       onClose={props.onClose}
-      className="min-w-[500px]"
+      className="min-w-[500px] h-full"
     >
-      <Column wGrow grow>
+      <Column wGrow grow className="h-full">
         <Row className="w-full border-b border-black h-[55px]" grow>
           <Row y="center" grow hGrow className="!h-[px] w-full px-4">
             <OverlayHeader>{props.title}</OverlayHeader>
@@ -35,7 +35,7 @@ const Overlay = (props: Props) => {
             </Row>
           ) : null}
         </Row>
-        <Column wGrow className="w-full h-full p-4">
+        <Column wGrow className="w-full !h-full p-4">
           {props.children}
         </Column>
       </Column>

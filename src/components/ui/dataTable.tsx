@@ -74,6 +74,7 @@ export function DataTable<TData extends { id: string }, TValue>({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
+    console.info(active, over)
     if (active && over && active.id !== over.id) {
       setData((data) => {
         const oldIndex = dataIds.indexOf(active.id)

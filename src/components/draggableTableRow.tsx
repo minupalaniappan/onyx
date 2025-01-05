@@ -28,6 +28,7 @@ export const DraggableTableRow = <T,>({
     opacity: isDragging ? 0.8 : 1,
     zIndex: isDragging ? 1 : 0,
     position: 'relative',
+    borderBottom: isDragging ? 'none' : '1px solid black',
     ...additionalStyle,
   }
 

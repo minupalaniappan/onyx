@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { DataTable } from '../components/ui/dataTable'
+import { v4 as uuidv4 } from 'uuid'
 
 import type { Meta } from '@storybook/react'
 
@@ -26,6 +27,7 @@ const data = Array.from({ length: 100 }, (_, index) => ({
   name: `John Doe ${index}`,
   age: 28,
   email: `john.doe${index}@example.com`,
+  id: uuidv4(),
 }))
 
 const meta: Meta<typeof DataTable> = {

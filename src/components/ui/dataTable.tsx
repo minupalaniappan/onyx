@@ -74,7 +74,6 @@ export function DataTable<TData extends { id: string }, TValue>({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
-    console.info(active, over)
     if (active && over && active.id !== over.id) {
       setData((data) => {
         const oldIndex = dataIds.indexOf(active.id)
@@ -108,7 +107,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   }, [columns, isDraggable])
 
   const table = useReactTable({
-    data: tableData,
+    data,
     columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     debugAll: true,
@@ -128,10 +127,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   const tNode = isDraggable ? (
     <Table className="h-full bg-gray-100 relative">
       <TableBody>
-        <SortableContext
-          items={tableData.map(({ id }) => id)}
-          strategy={verticalListSortingStrategy}
-        >
+        <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
           {table.getRowModel().rows?.length ? (
             table
               .getRowModel()
@@ -224,7 +220,6 @@ export function DataTable<TData extends { id: string }, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <Row key={headerGroup.id} className="bg-white w-full">
               {headerGroup.headers.map((header) => {
-                console.info(header)
                 return (
                   <div
                     key={header.id}

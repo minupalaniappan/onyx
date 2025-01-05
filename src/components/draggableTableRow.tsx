@@ -48,8 +48,13 @@ export const DraggableTableRow = <T,>({
             cell.column.columnDef.size
               ? {
                   width: cell.column.columnDef.size,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }
-              : {}
+              : {
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }
           }
         >
           {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -28,7 +28,7 @@ const Overlay = (props: Props) => {
             <Row
               y="center"
               x="center"
-              className="border-l border-black w-fit p-4 hover:bg-gray-100 cursor-pointer"
+              className="border-l border-black w-fit p-4 hover:bg-gray-100 cursor-pointer h-[54px]"
               onClick={props.onClose}
             >
               <XMarkIcon className="h-6 w-6" />

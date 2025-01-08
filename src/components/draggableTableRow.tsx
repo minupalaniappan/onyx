@@ -11,10 +11,12 @@ export const DraggableTableRow = <T,>({
   row,
   className,
   additionalStyle,
+  onClick,
 }: {
   row: ReactTableRow<T>
   className?: string
   additionalStyle?: CSSProperties
+  onClick?: () => void
 }) => {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.id,
@@ -41,6 +43,7 @@ export const DraggableTableRow = <T,>({
       )}
       ref={setNodeRef}
       style={style}
+      onClick={onClick}
     >
       {row.getVisibleCells().map((cell) => (
         <TableCell

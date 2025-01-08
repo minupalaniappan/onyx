@@ -44,7 +44,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   page?: number
   totalPages?: number
   search?: string
-  onSelect?: (rows: TData[]) => void
+  onSelect?: (rows: TData) => void
   onDelete?: (rows: TData[]) => void
 }
 
@@ -57,6 +57,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   onPageChange,
   page,
   search,
+  onSelect,
   totalPages,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState(tableData)
@@ -137,6 +138,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                   row={row}
                   data-state={row.getIsSelected() && 'selected'}
                   className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+                  onClick={() => onSelect?.(row.original)}
                 />
               ))
           ) : (
@@ -161,6 +163,7 @@ export function DataTable<TData extends { id: string }, TValue>({
               key={row.id}
               data-state={row.getIsSelected() && 'selected'}
               className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+              onClick={() => onSelect?.(row.original)}
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell

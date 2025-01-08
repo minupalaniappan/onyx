@@ -16,9 +16,9 @@ import { Row } from '../layout'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export type DatePickerWithRangeProps = {
-  date: {
-    from: Date
-    to: Date
+  date?: {
+    from?: Date
+    to?: Date
   }
   setDate: (date?: { from?: Date; to?: Date }) => void
 }
@@ -60,7 +60,7 @@ export const DatePickerWithRange = ({
             </Button>
             {date ? (
               <XMarkIcon
-                className=" !w-[12px] !h-[12px] stroke-2 hover:bg-gray-300 relative cursor-pointer right-[25px] cursor-pointer"
+                className=" !w-[12px] !h-[12px] stroke-2 hover:bg-gray-300 relative right-[25px] cursor-pointer"
                 {...{
                   onClick: () => {
                     setDate(undefined)
@@ -78,7 +78,10 @@ export const DatePickerWithRange = ({
               initialFocus
               mode="range"
               defaultMonth={date?.from}
-              selected={date}
+              selected={{
+                from: date?.from,
+                to: date?.to,
+              }}
               onSelect={(e) => {
                 if (e) {
                   setDate({ from: e.from ?? undefined, to: e.to ?? undefined })

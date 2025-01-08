@@ -4,15 +4,28 @@ import { DatePickerWithRange as DatePickerComponent } from '@/components/ui/date
 import { useState } from 'react'
 
 const Component = () => {
-  const [date, setDate] = useState<{
-    from: Date
-    to: Date
-  }>({
+  const [date, setDate] = useState<
+    | {
+        from?: Date
+        to?: Date
+      }
+    | undefined
+  >({
     from: new Date(2022, 0, 20),
     to: new Date(2022, 0, 20),
   })
 
-  return <DatePickerComponent date={date} setDate={setDate} />
+  return (
+    <DatePickerComponent
+      date={
+        date ?? {
+          to: new Date(),
+          from: new Date(),
+        }
+      }
+      setDate={(e) => setDate(e)}
+    />
+  )
 }
 
 const meta: Meta<typeof DatePickerComponent> = {

@@ -200,9 +200,7 @@ export function DataTable<TData extends { id: string }, TValue>({
               key={row.id}
               data-state={row.getIsSelected() && 'selected'}
               className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
+              onClick={() => {
                 onRowClick?.(row.original)
               }}
             >

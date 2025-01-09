@@ -43,7 +43,10 @@ export const DraggableTableRow = <T,>({
       )}
       ref={setNodeRef}
       style={style}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation()
+        onClick?.()
+      }}
     >
       {row.getVisibleCells().map((cell) => (
         <TableCell

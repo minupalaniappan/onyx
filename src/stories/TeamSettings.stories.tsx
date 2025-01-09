@@ -53,7 +53,7 @@ const meta: Meta<typeof DataTable> = {
           {...args}
           page={page}
           onPageChange={setPage}
-          onSelect={onRowSelect}
+          onRowClick={onRowSelect}
         />
         <EditTeamMemberSettingsOverlay
           open={open}

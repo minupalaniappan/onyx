@@ -33,6 +33,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { DraggableHandle } from './draggableHandle'
+import { Checkbox } from './checkbox'
 
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -44,8 +45,10 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   page?: number
   totalPages?: number
   search?: string
-  onSelect?: (rows: TData) => void
+  onRowClick?: (rows: TData) => void
   onDelete?: (rows: TData[]) => void
+  isSelectable?: boolean
+  onSelectedRowsChange?: (rows: TData[]) => void
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
@@ -57,10 +60,17 @@ export function DataTable<TData extends { id: string }, TValue>({
   onPageChange,
   page,
   search,
-  onSelect,
+  isSelectable,
+  onRowClick,
   totalPages,
+  onSelectedRowsChange,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState(tableData)
+  const [selectedRows, setSelectedRows] = useState<TData[]>([])
+
+  useEffect(() => {
+    onSelectedRowsChange?.(selectedRows)
+  }, [onSelectedRowsChange, selectedRows])
 
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -85,8 +95,10 @@ export function DataTable<TData extends { id: string }, TValue>({
   }
 
   const tableColumns = useMemo(() => {
+    let newColumns = columns
+
     if (isDraggable) {
-      const newColumns = [
+      newColumns = [
         {
           id: 'drag-handle',
           header: 'Move',
@@ -100,12 +112,37 @@ export function DataTable<TData extends { id: string }, TValue>({
         },
         ...columns,
       ]
-
-      return newColumns
-    } else {
-      return columns
     }
-  }, [columns, isDraggable])
+
+    if (isSelectable) {
+      newColumns = [
+        {
+          id: 'select',
+          header: '',
+          cell: ({ row }: { row: ReactTableRow<TData> }) => (
+            <Checkbox
+              className="w-[12px] h-[12px] relative bottom-[2px]"
+              checkboxClassName="w-[12px] h-[12px]"
+              checked={selectedRows.includes(row.original)}
+              onClick={(e) => {
+                e.stopPropagation()
+                if (selectedRows.includes(row.original)) {
+                  setSelectedRows(
+                    selectedRows.filter((r) => r !== row.original),
+                  )
+                } else {
+                  setSelectedRows([...selectedRows, row.original])
+                }
+              }}
+            />
+          ),
+        },
+        ...newColumns,
+      ]
+    }
+
+    return newColumns
+  }, [columns, isDraggable, isSelectable])
 
   const table = useReactTable({
     data,
@@ -138,7 +175,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                   row={row}
                   data-state={row.getIsSelected() && 'selected'}
                   className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-                  onClick={() => onSelect?.(row.original)}
+                  onClick={() => onRowClick?.(row.original)}
                 />
               ))
           ) : (
@@ -163,7 +200,11 @@ export function DataTable<TData extends { id: string }, TValue>({
               key={row.id}
               data-state={row.getIsSelected() && 'selected'}
               className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-              onClick={() => onSelect?.(row.original)}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                onRowClick?.(row.original)
+              }}
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell

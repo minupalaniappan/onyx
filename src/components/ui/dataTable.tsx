@@ -34,6 +34,7 @@ import {
 } from '@dnd-kit/sortable'
 import { DraggableHandle } from './draggableHandle'
 import { Checkbox } from './checkbox'
+import { cn } from '../../lib/utils'
 
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -121,8 +122,6 @@ export function DataTable<TData extends { id: string }, TValue>({
           header: '',
           cell: ({ row }: { row: ReactTableRow<TData> }) => (
             <Checkbox
-              className="w-[12px] !h-[12px] relative"
-              checkboxClassName="w-[12px] h-[12px]"
               checked={selectedRows.includes(row.original)}
               onClick={(e) => {
                 e.stopPropagation()
@@ -195,11 +194,16 @@ export function DataTable<TData extends { id: string }, TValue>({
     <Table className="h-full bg-gray-100 relative">
       <TableBody>
         {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => (
+          table.getRowModel().rows.map((row, index) => (
             <TableRow
               key={row.id}
               data-state={row.getIsSelected() && 'selected'}
-              className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
+              className={cn(
+                'cursor-pointer px-2 hover:bg-gray-200 table-fixed',
+                {
+                  'border-b-0': index === table.getRowModel().rows.length - 1,
+                },
+              )}
               onClick={() => {
                 onRowClick?.(row.original)
               }}

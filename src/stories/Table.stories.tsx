@@ -51,6 +51,7 @@ export const Table = {
     page: 1,
     isLoading: false,
     isDraggable: false,
+    isSelectable: true,
     totalPages: 10,
   },
 }

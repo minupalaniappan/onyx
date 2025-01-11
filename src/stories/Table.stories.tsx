@@ -52,6 +52,5 @@ export const Table = {
     isLoading: false,
     isDraggable: false,
     totalPages: 10,
-    isSelectable: true,
   },
 }

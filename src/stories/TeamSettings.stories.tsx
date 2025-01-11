@@ -82,5 +82,6 @@ export const TeamSettings = {
     isLoading: false,
     isDraggable: false,
     totalPages: 10,
+    isSelectable: true,
   },
 }

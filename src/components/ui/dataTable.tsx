@@ -121,7 +121,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           header: '',
           cell: ({ row }: { row: ReactTableRow<TData> }) => (
             <Checkbox
-              className="w-[12px] h-[12px] relative bottom-[2px]"
+              className="w-[12px] !h-[12px] relative"
               checkboxClassName="w-[12px] h-[12px]"
               checked={selectedRows.includes(row.original)}
               onClick={(e) => {
@@ -142,7 +142,7 @@ export function DataTable<TData extends { id: string }, TValue>({
     }
 
     return newColumns
-  }, [columns, isDraggable, isSelectable])
+  }, [columns, isDraggable, isSelectable, selectedRows])
 
   const table = useReactTable({
     data,
@@ -289,7 +289,7 @@ export function DataTable<TData extends { id: string }, TValue>({
           ))}
         </Row>
         <div
-          className="border border-black overflow-y-scroll w-full"
+          className="border border-black overflow-y-scroll no-scrollbar w-full"
           style={{
             height: 'calc(100vh - 110px)',
             maxHeight: 'calc(100vh - 110px)',

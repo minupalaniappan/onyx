@@ -1,7 +1,9 @@
 import React from 'react'
 import AsyncSelect from 'react-select/async'
 
-type SearchInputProps = {}
+type SearchInputProps = {
+  isLoading?: boolean
+}
 
 const SearchInput = (props: SearchInputProps) => {
   return (
@@ -14,6 +16,7 @@ const SearchInput = (props: SearchInputProps) => {
         option: () => '!text-black',
         singleValue: () => '!text-black',
       }}
+      isLoading={props.isLoading}
       components={{
         IndicatorSeparator: () => null,
       }}

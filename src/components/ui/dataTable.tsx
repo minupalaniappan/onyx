@@ -172,7 +172,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                 row={row}
                 data-state={row.getIsSelected() && 'selected'}
                 className={cn(
-                  'cursor-pointer px-2 hover:bg-gray-200 table-fixed',
+                  'cursor-pointer px-2 hover:bg-gray-200 table-fixed h-[36px]',
                   {
                     '!border-b-0':
                       index === table.getRowModel().rows.length - 1,

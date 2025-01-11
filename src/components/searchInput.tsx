@@ -10,11 +10,13 @@ const SearchInput = (props: SearchInputProps) => {
     <AsyncSelect
       classNames={{
         container: () => 'rounded-none',
-        control: () => '!rounded-none !border-black focus:border-none',
+        control: () =>
+          '!rounded-none !border-black focus:border-none !focus:shadow-none !shadow-none',
         placeholder: () => '!text-gray-800 relative top-[1px]',
         input: () => '!text-black',
         option: () => '!text-black',
         singleValue: () => '!text-black',
+        menu: () => '!rounded-none !border !border-black !shadow-none',
       }}
       isLoading={props.isLoading}
       components={{

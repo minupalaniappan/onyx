@@ -9,6 +9,6 @@ const meta: Meta<typeof SearchInputComponent> = {
 
 export default meta
 
-export const ResetPassword = {
+export const SearchInput = {
   args: {},
 }

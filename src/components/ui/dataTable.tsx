@@ -166,17 +166,21 @@ export function DataTable<TData extends { id: string }, TValue>({
       <TableBody>
         <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
           {table.getRowModel().rows?.length ? (
-            table
-              .getRowModel()
-              .rows.map((row) => (
-                <DraggableTableRow
-                  key={row.id}
-                  row={row}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className="cursor-pointer px-2 hover:bg-gray-200 table-fixed"
-                  onClick={() => onRowClick?.(row.original)}
-                />
-              ))
+            table.getRowModel().rows.map((row, index) => (
+              <DraggableTableRow
+                key={row.id}
+                row={row}
+                data-state={row.getIsSelected() && 'selected'}
+                className={cn(
+                  'cursor-pointer px-2 hover:bg-gray-200 table-fixed',
+                  {
+                    '!border-b-0':
+                      index === table.getRowModel().rows.length - 1,
+                  },
+                )}
+                onClick={() => onRowClick?.(row.original)}
+              />
+            ))
           ) : (
             <TableRow>
               <TableCell

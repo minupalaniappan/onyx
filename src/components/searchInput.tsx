@@ -12,17 +12,19 @@ const SearchInput = <T,>(props: SearchInputProps<T>) => {
   const [value, setValue] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [options, setOptions] = useState<T[]>([])
+  const [searching, setSearching] = useState<boolean>(false)
 
   const lazyOnSearch = useCallback(
     debounce(async (value) => {
+      setLoading(true)
       if (value.length > 0) {
-        setLoading(true)
         const options = await props.onSearch(value)
         setOptions(options)
-        setLoading(false)
       } else {
         setOptions([])
       }
+      setSearching(false)
+      setLoading(false)
     }, 500),
     [],
   )
@@ -46,7 +48,10 @@ const SearchInput = <T,>(props: SearchInputProps<T>) => {
         dropdownIndicator: () => '!hidden',
       }}
       inputValue={value}
-      onInputChange={(newValue) => setValue(newValue ?? '')}
+      onInputChange={(newValue) => {
+        setSearching(true)
+        setValue(newValue ?? '')
+      }}
       isLoading={loading}
       options={options.map((e) => ({
         label: props.formatLabel(e),
@@ -62,6 +67,16 @@ const SearchInput = <T,>(props: SearchInputProps<T>) => {
             <Spinner />
           </Row>
         ),
+        NoOptionsMessage: () =>
+          value.length === 0 || searching ? (
+            <Row y="center" x="center" grow className="py-2">
+              Start searching
+            </Row>
+          ) : (
+            <Row y="center" x="center" grow className="py-2">
+              No results
+            </Row>
+          ),
       }}
     />
   )

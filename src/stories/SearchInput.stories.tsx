@@ -10,5 +10,15 @@ const meta: Meta<typeof SearchInputComponent> = {
 export default meta
 
 export const SearchInput = {
-  args: {},
+  args: {
+    onSearch: async (value: string) =>
+      fetch(`https://api.github.com/search/users?q=${value}`)
+        .then((e) => e.json())
+        .then(({ items }) =>
+          items.map((e: { login: string }) => ({
+            name: e.login,
+          })),
+        ),
+    formatLabel: (value: { name: string }) => value.name,
+  },
 }

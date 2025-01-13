@@ -14,6 +14,7 @@ const SearchInput = <T,>(props: SearchInputProps<T>) => {
   const [options, setOptions] = useState<T[]>([])
   const [searching, setSearching] = useState<boolean>(false)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyOnSearch = useCallback(
     debounce(async (value) => {
       setLoading(true)
